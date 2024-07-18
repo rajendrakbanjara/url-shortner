@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Shortener from "./Shortener";
 const ShortUrl = () => {
   return (
     <>
@@ -36,17 +37,9 @@ const ShortUrl = () => {
             </button>
           </div>
           {/* input for short link */}
-          <div
-            className="w-full h-40 overflow-hidden flex-wrap mx-5"
-            style={{
-              backgroundImage: "url('../images/bg-shorten-mobile.svg')",
-              backgroundRepeat: "no-repeat", // Prevents the background image from repeating
-              backgroundSize: "cover", // Ensures the background image covers the entire div
-              backgroundPosition: "center",
-             // Centers the background image
-              
-            }}
-          ></div>
+          <div className="mx-5 mt-5">
+            <Shortener/>
+          </div>
         </div>
       </div>
     </>

@@ -4,6 +4,9 @@ export default function Shortener() {
   const [text, setText] = useState("");
   const [linkData, setLinkData] = useState(null);
   const [submit, setSubmit] = useState(false);
+  const [original, setOriginal] = useState("");
+  const [buttonText, setButtonText] = useState("copy");
+
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -20,6 +23,7 @@ export default function Shortener() {
         const res = await fetch(`https://ulvis.net/API/write/get?url=${text}`);
         const data = await res.json();
         setLinkData(data.data);
+        setOriginal(text);
         setText(""); // empty the input field
       };
       shortenLink();
@@ -27,6 +31,12 @@ export default function Shortener() {
     }
   }, [submit, text]);
   console.log("here the result");
+
+  const handleCopy = ()=> {
+    // navigator.clipboard.writeText{linkData.url}
+  }
+  
+ 
   return (
     <>
       <section className="shortener max-width relative">
@@ -57,23 +67,24 @@ export default function Shortener() {
         {/* display shorted link */}
         <div
           className="bg-white flex flex-col justify-center items-center text-center md:flex-row 
-        md:justify-between p-3 mt-3 rounded-lg shadow"
+        md:justify-between p-3 mt-3 rounded-lg shadow-lg"
         >
           <article>
-            <h6 className="mb-3 md:mb-0">original link</h6>
+            <h6 className="mb-3 md:mb-0">{original}</h6>
           </article>
           <article >
             <ul className="md:flex md:items-center">
               <li className="md:mr-5">
-                <button className="text-cyan-500">link is here</button>
+                <button className="text-cyan-500">{linkData && <h1>{linkData.url}</h1>}</button>
               </li>
               <li>
-                <button
-                  className="text-white px-3 py-2 text-sm rounded-lg"
-                  style={{ backgroundColor: "hsl(180, 66%, 49%)" }}
+                <button onClick={handleCopy}
+                  className="text-white px-3 py-2 text-sm rounded-lg bg-blueBG focus:bg-slate-800 w-full md:w-min"
+                  
                 >
                   copy
                 </button>
+                
               </li>
             </ul>
           </article>
